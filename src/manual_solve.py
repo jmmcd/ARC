@@ -118,7 +118,6 @@ def solve_c3f564a4(x):
                 flag=1
         if flag == 0:
             pattern = row
-    
     for i in range(0,length[0]):
         for j in range(0,length[1]):
             if y[i,j] == 0:

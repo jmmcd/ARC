@@ -1,5 +1,10 @@
 Student#: 16394923 Assignment 3 - P&T4AI
 
+For this assignment we were required to code solutions for the Abstraction and Reasoning Corpus available at: https://github.com/fchollet/ARC
+
+This repository contains my solutions for 3 of the ARC problems.
+
+
 
 # The Abstraction and Reasoning Corpus (ARC)
 
