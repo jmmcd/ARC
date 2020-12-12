@@ -12,7 +12,8 @@ import re
 ### must be in the data/training directory, not data/evaluation.
 
 #d4a91cb9.json
-#56ff96f3.json#db3e9e38.json
+#0d3d703e.json
+#56ff96f3.json
 
 
 def solve_d4a91cb9(x):
@@ -78,7 +79,30 @@ def solve_d4a91cb9(x):
                     y[loc2[0],yloc]=4          
     return y
 
-
+def solve_0d3d703e(x):
+    #Relpace each colour with the corresponding colour
+    y = x.copy()
+    size = np.shape(y)
+    z = np.zeros(size)
+    for i in range(0,size[0]):
+        for j in range(0,size[1]):
+            if y[i,j] == 1:
+                    y[i,j] = 5
+            elif y[i,j] == 2:
+                    y[i,j] =6     
+            elif y[i,j] == 3:
+                    y[i,j] = 4
+            elif y[i,j] == 4:
+                    y[i,j] = 3
+            elif y[i,j] == 5:
+                    y[i,j] = 1
+            elif y[i,j] == 6:
+                    y[i,j] = 2
+            elif y[i,j] == 8:
+                    y[i,j] = 9
+            elif y[i,j] == 9:
+                    y[i,j] = 8
+    return y
 
 
 def main():
