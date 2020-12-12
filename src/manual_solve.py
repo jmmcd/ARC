@@ -11,11 +11,13 @@ import re
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
 
+#d4a91cb9.json
 #56ff96f3.json
 #db3e9e38.json
-#d4a91cb9.json
 
-def solve_6a1e5592(x):
+
+def solve_d4a91cb9(x):
+    print("hello")
     return x
 
 def solve_b2862040(x):
