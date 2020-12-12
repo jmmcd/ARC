@@ -1,4 +1,5 @@
-Student#: 16394923 Assignment 3 - P&T4AI
+Student# 16394923 
+Assignment 3 - P&T4AI
 
 For this assignment we were required to code solutions for the Abstraction and Reasoning Corpus available at: https://github.com/fchollet/ARC
 
