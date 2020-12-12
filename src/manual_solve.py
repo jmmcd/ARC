@@ -11,10 +11,33 @@ import re
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
 
-#d4a91cb9.json
-#0d3d703e.json
-#56ff96f3.json
+#0d3d703e.json replace colours
+#d4a91cb9.json draw a line between two points with verticality/horizontality contraints
+#c3f564a4.json find the repeated pattern and finish it
 
+def solve_0d3d703e(x):
+    #Relpace each colour with the corresponding colour
+    y = x.copy()
+    size = np.shape(y)
+    for i in range(0,size[0]):
+        for j in range(0,size[1]):
+            if y[i,j] == 1:
+                    y[i,j] = 5
+            elif y[i,j] == 2:
+                    y[i,j] =6     
+            elif y[i,j] == 3:
+                    y[i,j] = 4
+            elif y[i,j] == 4:
+                    y[i,j] = 3
+            elif y[i,j] == 5:
+                    y[i,j] = 1
+            elif y[i,j] == 6:
+                    y[i,j] = 2
+            elif y[i,j] == 8:
+                    y[i,j] = 9
+            elif y[i,j] == 9:
+                    y[i,j] = 8
+    return y
 
 def solve_d4a91cb9(x):
     #Find instance of 8
@@ -79,30 +102,34 @@ def solve_d4a91cb9(x):
                     y[loc2[0],yloc]=4          
     return y
 
-def solve_0d3d703e(x):
-    #Relpace each colour with the corresponding colour
-    y = x.copy()
-    size = np.shape(y)
-    z = np.zeros(size)
-    for i in range(0,size[0]):
-        for j in range(0,size[1]):
-            if y[i,j] == 1:
-                    y[i,j] = 5
-            elif y[i,j] == 2:
-                    y[i,j] =6     
-            elif y[i,j] == 3:
-                    y[i,j] = 4
-            elif y[i,j] == 4:
-                    y[i,j] = 3
-            elif y[i,j] == 5:
-                    y[i,j] = 1
-            elif y[i,j] == 6:
-                    y[i,j] = 2
-            elif y[i,j] == 8:
-                    y[i,j] = 9
-            elif y[i,j] == 9:
-                    y[i,j] = 8
+def solve_c3f564a4(x):
+    y=x.copy()
+    length = np.shape(y)
+    #need to find a row with no 0's
+    #Can then use that row to find what comes next by checking the cell to the left or right
+    #If blank cell, check cell to the left, if thats blank check cell to the right, if blank keep moving until a non blank is found
+    #if blank cell and cell to left = number find number in row and change blank cell to next number
+    #if blank cell and cell to right = number, find number in row and change blank cell to previous number
+    pattern = []
+    for row in y:
+        flag = 0
+        for el in row:
+            if el == 0:
+                flag=1
+        if flag == 0:
+            pattern = row
+    
+    for i in range(0,length[0]):
+        for j in range(0,length[1]):
+            if y[i,j] == 0:
+                if y[i-1,j] != 0:
+                    numToFind = y[i-1,j]
+                    #find the number after numtofind in pattern
+                    for num in range(0,len(pattern)-1):
+                        if pattern[num] == numToFind:
+                            y[i,j] = pattern[num+1]
     return y
+
 
 
 def main():
