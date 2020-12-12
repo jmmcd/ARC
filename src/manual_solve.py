@@ -12,19 +12,73 @@ import re
 ### must be in the data/training directory, not data/evaluation.
 
 #d4a91cb9.json
-#56ff96f3.json
-#db3e9e38.json
+#56ff96f3.json#db3e9e38.json
 
 
 def solve_d4a91cb9(x):
-    print("hello")
-    return x
+    #Find instance of 8
+    #Find instance of 2
+    #Draw a vertical line from 8
+    #draw a horizontal line from 2   
+    y=x.copy()
+    posy=0
+    for array in y:
+        posx=0
+        for el in array:
+            if str(el) == "8":
+                loc = (posy,posx)
+            elif str(el) == "2":
+                loc2 = (posy,posx)
+            posx+=1
+        posy+=1
+    #To go up or down must compare y coordinate of 8 location against y coordinate of 2 location
+    if loc[0] < loc2[0]: #If 8 appears closer to the top of the grid, inputs must move downwards
+        num = loc2[0] - loc[0]
+        xloc = loc[0]
+        for i in range(0,num):
+            if loc[0] < loc2[0]:
+                xloc = xloc+1    
+                y[xloc,loc[1]]=4
+        #Move right
+        if loc[1] < loc2[1]:
+            num2 = loc2[1] - loc[1]
+            yloc = loc2[1]
+            for i in range(0,num2):
+                if loc[1] < loc2[1]:
+                    yloc = yloc-1    
+                    y[loc2[1]-1,yloc]=4  
+        #move left
+        if loc[1] > loc2[1]:
+            num2 = loc[1] - loc2[1]
+            yloc = loc2[1]
+            for i in range(0,num2):
+                if loc[1] > loc2[1]:
+                    yloc = yloc+1    
+                    y[loc2[0],yloc]=4
+    if loc[0] > loc2[0]:    #Move up instead of down
+        num = loc[0] - loc2[0]
+        xloc = loc[0]
+        for i in range(0,num):
+            if loc[0] > loc2[0]:
+                xloc = xloc-1    
+                y[xloc,loc[1]]=4
+        if loc[1] < loc2[1]:    #move right
+            num2 = loc2[1] - loc[1]
+            yloc = loc[1]
+            for i in range(0,num2-1):
+                if loc[1] < loc2[1]:
+                    yloc = yloc +1
+                    y[loc2[0],yloc]=4
+        if loc[1] > loc2[1]:    #move left
+            num2 = loc[1] - loc2[1]
+            yloc = loc2[1]
+            for i in range(0,num2-1):
+                if loc[1] > loc2[1]:
+                    yloc = yloc -1
+                    y[loc2[0],yloc]=4          
+    return y
 
-def solve_b2862040(x):
-    return x
 
-def solve_05269061(x):
-    return x
 
 
 def main():
