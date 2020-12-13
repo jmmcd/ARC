@@ -10,13 +10,11 @@ import re
 ### result. Name them according to the task ID as in the three
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
-def solve_6a1e5592(x):
-    return x
-
-def solve_b2862040(x):
-    return x
-
-def solve_05269061(x):
+def solve_aabf363d(x):
+    row,col=x.shape
+    color = x[row-1,0]
+    x[row-1,0] = 0
+    x[x > 0] = color
     return x
 
 
