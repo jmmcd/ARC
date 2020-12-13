@@ -4,7 +4,7 @@ import os, sys
 import json
 import numpy as np
 import re
-import arcsolve
+#import arcsolve
 ### YOUR CODE HERE: write at least three functions which solve
 ### specific tasks by transforming the input x and returning the
 ### result. Name them according to the task ID as in the three
@@ -13,8 +13,18 @@ import arcsolve
 #def solve_6a1e5592(x):
 #    return x
 
-#def solve_b2862040(x):
-#    return x
+def solve_aabf363d(x):
+    _testdata= np.array(x)
+    _row, _colum = _testdata.shape
+    _getColour = _testdata[_row-1,0]
+    for ir, row in enumerate(_testdata):
+        for ic, element in enumerate(row):
+            if _testdata[ir, ic] > 0 :
+                if _testdata[ir, ic] == _getColour:
+                    _testdata[ir, ic] = 0
+                else:
+                    _testdata[ir, ic] = _getColour
+    return _testdata   
 
 def solve_c1d99e64(x):
     _testdata= np.array(x)
