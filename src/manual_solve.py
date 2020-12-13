@@ -10,7 +10,22 @@ import re
 ### result. Name them according to the task ID as in the three
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
+###
+### Name: Vinu Padmanabhan
+### Student Id: 20236062
+### GitHub repository: https://github.com/vinupk/ARC
+###  
 
+###===============================================================
+###  Task - 6f8cd79b
+###  Input : A pattern with a colour and different colour at the bottom left hand corner
+###  Output: Paint the pattern with the colour at the bottom corner
+###  Solution: Get shape of input matrix and get colour to paint the pattern
+###  Loop through the array for each element, IF greater than 0, 
+###     again IF its target paint colour
+###  IF not paint colour then paint pattern with colour picked up from bottom corner
+###     Else paint with 0 (Black)
+###===============================================================
 def solve_aabf363d(x):
     _testdata= np.array(x)
     _row, _colum = _testdata.shape
@@ -24,6 +39,13 @@ def solve_aabf363d(x):
                     _testdata[ir, ic] = _getColour
     return _testdata   
 
+###===============================================================
+###  Task - c1d99e64
+###  Input : A coloured pattern with empty rows and column
+###  Output: Paint the empty rows and columns with orange colour
+###  Solution: Get empty rows and column
+###  Paint all empty rows and column with orange colour
+###===============================================================
 def solve_c1d99e64(x):
     _testdata= np.array(x)
     _row, _colum = _testdata.shape
@@ -38,6 +60,13 @@ def solve_c1d99e64(x):
         _testdata[0:,col:col+1] = _getColour        
     return _testdata     
 
+###===============================================================
+###  Task - c1d99e64
+###  Input : An empty grid
+###  Output: Paint grid border with blue
+###  Solution: Get row and column size
+###  Paint top row, bottom row, 1st column and last column with blue
+###===============================================================
 def solve_6f8cd79b(x):
     _testdata= np.array(x)
     _row, _colum = _testdata.shape
