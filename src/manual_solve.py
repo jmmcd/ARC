@@ -10,13 +10,20 @@ import re
 ### result. Name them according to the task ID as in the three
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
-def solve_6a1e5592(x):
-    return x
+# ID : 20235722
+# name: Pardhasaradhi Patta
+# github : https://github.com/ml-learner2020/ARC
+# The task is about paint the the colors with the one's which is on the bottom right
 
-def solve_b2862040(x):
-    return x
-
-def solve_05269061(x):
+def solve_aabf363d(x):
+    # get array shape
+    row,col=x.shape
+    # get bottom right color 
+    color = x[row-1,0]
+    #color it to black
+    x[row-1,0] = 0
+    # any thing which i s not black , paint with bottom right color
+    x[x > 0] = color
     return x
 
 
