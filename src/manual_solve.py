@@ -10,14 +10,35 @@ import arcsolve
 ### result. Name them according to the task ID as in the three
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
-def solve_6a1e5592(x):
-    return x
+#def solve_6a1e5592(x):
+#    return x
 
-def solve_b2862040(x):
-    return x
+#def solve_b2862040(x):
+#    return x
 
-def solve_05269061(x):
-    return x
+def solve_c1d99e64(x):
+    _testdata= np.array(x)
+    _row, _colum = _testdata.shape
+    _getColour = 2
+    zero_rows = np.where(~_testdata.any(axis=1))[0]
+    zero_cols = np.where(~_testdata.any(axis=0))[0]
+
+    for row in zero_rows:
+        _testdata[row:row+1] = _getColour
+
+    for col in zero_cols:
+        _testdata[0:,col:col+1] = _getColour        
+    return _testdata     
+
+def solve_6f8cd79b(x):
+    _testdata= np.array(x)
+    _row, _colum = _testdata.shape
+    _getColour = 8
+    _testdata[0:1] =_getColour
+    _testdata[_row-1:_row] =_getColour
+    _testdata[:,0] = _getColour
+    _testdata[:,_colum-1] = _getColour      
+    return _testdata
 
 
 def main():
