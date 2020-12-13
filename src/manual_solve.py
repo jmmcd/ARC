@@ -241,6 +241,109 @@ def solve_a85d4709(x):
         output.append(array) #append to our output
     output = np.array(output) #Convert list to np array
     return output
+	
+def solve_54d82841(x):
+    missing_indices = []
+    for arr in x:
+        for i in range(len(arr) - 2): 
+            if arr[i] == arr[i + 1] and arr[i + 1] == arr[i + 2] and arr[i] != 0 :  #finding 3 consecutive colored elements
+                missing_indices.append(i+1) #middle index is the missing index
+    
+    for index in missing_indices:
+        x[-1][index] = 4 #for all the missing indices , color the last block
+    return x
+
+def solve_dbc1a6ce(x):
+    #a function which scans rows for 2 points 
+    def fill_rows (x):
+        for arr in x :
+            unique, counts = np.unique(arr, return_counts=True)
+            count_1 = 0
+            for u ,c in zip (unique,counts):
+                if u == 1:
+                    count_1 =  c
+                if count_1 > 1: # if more than 2 points in the row fill them
+                    indices = [index for index, element in enumerate(arr) if element == 1]
+                    min_idx = min(indices)
+                    max_idx = max(indices)
+                    new_arr = arr
+                    for i in range(min_idx,max_idx+1):
+                        if new_arr[i] == 0:
+                            new_arr[i] = 8
+                    np.where(x==arr, new_arr, x) 
+        return x
+    x = fill_rows(x) #change the matrix by painting the rows
+    x = np.transpose(x) #transpose the changed matrix , making then columns now rows
+    x = fill_rows(x) # again fill rows
+    x = np.transpose(x) # transpose to get the originial ones with transposed matrices
+    return x
+
+def solve_67385a82(x):
+    indices = np.where(x == 3) #finding all green points
+    i_values = indices[0]
+    j_values = indices[1]
+    points = []
+    for i,j in zip(i_values,j_values):
+        points.append((i,j))
+    for p1,p2 in itertools.combinations(points, 2): #getting all combinations of green points
+        x1,y1 = p1
+        x2,y2 = p2
+        if (x1 == x2 and abs(y1-y2) == 1) or (y1 == y2 and abs(x1-x2) == 1): #if the points are neighbours fill them both
+            if x[x1][y1] != 8:
+                x[x1][y1] = 8
+            if x[x2][y2] != 8:
+                x[x2][y2] = 8
+    return x
+
+def solve_7e0986d6(x):
+        unique, counts = np.unique(x, return_counts=True) #get all the unique colors in the matrix with counts
+        colors = [] #list having a tuple or color,count except black
+        for color,count in zip (unique,counts):
+            if color == 0 :
+                continue
+            else:
+                colors.append((color,count))
+        min_count = None
+        outlier_color = None
+        for element in colors:
+            color,count = element
+            if min_count == None or min_count > count : 
+                min_count = count
+                outlier_color =  color
+        majoirity_color = None
+        for element in colors:
+            color,count = element
+            if color != outlier_color:
+                majoirity_color =  color
+        #now getting all the outlier points and decide if they are inside the figures or black
+        indices = np.where(x == outlier_color)
+        i_values = indices[0]
+        j_values = indices[1]
+        points = []
+        max_shape = x.shape
+        for i,j in zip(i_values,j_values):
+            points.append((i,j))
+        for p1 in points:
+            x1,y1 = p1
+            count = 0 
+            if x1+1 < max_shape[0]:
+                if x[x1+1][y1] not in [0 , outlier_color]:
+                    count+= 1
+            if x1-1 >= 0 :
+                if x[x1-1][y1] not in [0 , outlier_color]:
+                    count+= 1
+            if y1+1 < max_shape[1]:
+                if x[x1][y1+1] not in [0 , outlier_color]:
+                    count+= 1
+            if y1-1 >= 0:
+                if x[x1][y1-1] not in [0 , outlier_color]:
+                    count+= 1
+            if count > 1:
+                x[x1][y1] =  majoirity_color
+            else : 
+                x[x1][y1] = 0
+            
+        return x
 
 
 
