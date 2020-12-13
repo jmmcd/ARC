@@ -4,14 +4,12 @@ import os, sys
 import json
 import numpy as np
 import re
-#import arcsolve
+
 ### YOUR CODE HERE: write at least three functions which solve
 ### specific tasks by transforming the input x and returning the
 ### result. Name them according to the task ID as in the three
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
-#def solve_6a1e5592(x):
-#    return x
 
 def solve_aabf363d(x):
     _testdata= np.array(x)
