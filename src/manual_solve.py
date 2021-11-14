@@ -13,6 +13,7 @@ import re
 
 # ------------------------------------------------------------------------------------------
 
+
 # solving task bdad9b1f
 
 def solve_bdad9b1f(x):
@@ -28,8 +29,10 @@ def solve_bdad9b1f(x):
     # draw the horizontal and vertical line at correct index with correct colour
     draw_line(vertical[0], vertical[1], "vertical", new_grid)
     draw_line(horizontal[0], horizontal[1], "horizontal", new_grid)
+
     # draw the correct colour pixel where the two lines intersect and return
     return draw_intersection(vertical[0], horizontal[0], new_grid)
+
 
 # takes a row or column as input and returns the colour and location of the start pixel
 # if none found return -1 for both
@@ -39,6 +42,7 @@ def locate_index_and_colour(data_list):
             return [i, y]
     return [-1, -1]
 
+
 # draws a line in a grid given the index, axis colour and grid
 def draw_line(index, colour, axis, grid):
     line = np.full(len(grid[0]), colour)
@@ -47,6 +51,7 @@ def draw_line(index, colour, axis, grid):
     elif axis == "vertical":
         grid[:, index] = line
     return grid
+
 
 # draws the correct colour pixel at the intersection of the two lines
 # given the vertical and horizontal index and the grid
@@ -58,9 +63,63 @@ def draw_intersection(vertical_index, horizontal_index, grid):
 
 # solving task 780d0b14
 
-def solve_780d0b14(x):
-    return x
 
+def solve_780d0b14(x):
+    new_grid = np.copy(x)
+    # find divides on each axis
+    horizontal = locate_divides(new_grid, "horizontal")
+    vertical = locate_divides(new_grid, "vertical")
+    # find and return all square colours in the correct format
+    return identify_colour_of_each_section(horizontal, vertical, new_grid)
+
+
+# find the divides represented by full rows or columns of zeros given
+# the grid and axis to search (vertical or horizontal)
+def locate_divides(grid, axis):
+    divide_indexes = np.array([])
+    if axis == "horizontal":
+        divide = np.full(len(grid[0, :]), 0)
+        for i, row in enumerate(grid):
+            if (row == divide).all():
+                divide_indexes = np.append(divide_indexes, i)
+        # add the end as a divide
+        divide_indexes = np.append(divide_indexes, len(grid[:, 0])-1)
+    elif axis == "vertical":
+        divide = np.full(len(grid[:, 0]), 0)
+        for i, column in enumerate(grid.T):
+            if (column == divide).all():
+                divide_indexes = np.append(divide_indexes, i)
+        # add the end as a divide
+        divide_indexes = np.append(divide_indexes, len(grid[0, :])-1)
+
+    return divide_indexes
+
+
+# method returns the colours and locations, given the grid, vertical and horizontal divides
+def identify_colour_of_each_section(horizontal_divides, vertical_divides, grid):
+    colours = []
+    # for each horizontal divide
+    for h in horizontal_divides:
+        row_colours = []
+        # for each vertical divide, search for the colour within the given bounds
+        # of the square while it is not found
+        for v in vertical_divides:
+            found_colour = False
+            counter = 0
+            while not found_colour:
+                counter += 1
+                current = grid[int(h)-counter][int(v)-1]
+                if current != 0:
+                    # save the found colour on this square in this row then
+                    # move on to the next divide on this line
+                    row_colours = np.append(row_colours, current)
+                    found_colour = True
+        # once all square colours identified on a horizontal section, append this to the colours
+        # and move down to the next row of large squares
+        colours.append(row_colours)
+
+    # return all found colours as a np array
+    return np.array(colours, int)
 # ------------------------------------------------------------------------------------------
 
 def main():
