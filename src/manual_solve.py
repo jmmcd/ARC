@@ -10,15 +10,58 @@ import re
 ### result. Name them according to the task ID as in the three
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
-def solve_6a1e5592(x):
+
+# ------------------------------------------------------------------------------------------
+
+# solving task bdad9b1f
+
+def solve_bdad9b1f(x):
+    new_grid = np.copy(x)
+    # get the index and colour of the vertical and horizontal row start pixel
+    vertical = locate_index_and_colour(new_grid[0])
+    horizontal = locate_index_and_colour([row[0] for row in new_grid])
+
+    # if no pixels found in the left row check the right
+    if horizontal[1] == -1:
+        horizontal = locate_index_and_colour([row[len(new_grid)-1] for row in new_grid])
+
+    # draw the horizontal and vertical line at correct index with correct colour
+    draw_line(vertical[0], vertical[1], "vertical", new_grid)
+    draw_line(horizontal[0], horizontal[1], "horizontal", new_grid)
+    # draw the correct colour pixel where the two lines intersect and return
+    return draw_intersection(vertical[0], horizontal[0], new_grid)
+
+# takes a row or column as input and returns the colour and location of the start pixel
+# if none found return -1 for both
+def locate_index_and_colour(data_list):
+    for i, y in enumerate(data_list):
+        if y != 0:
+            return [i, y]
+    return [-1, -1]
+
+# draws a line in a grid given the index, axis colour and grid
+def draw_line(index, colour, axis, grid):
+    line = np.full(len(grid[0]), colour)
+    if axis == "horizontal":
+        grid[index, :] = line
+    elif axis == "vertical":
+        grid[:, index] = line
+    return grid
+
+# draws the correct colour pixel at the intersection of the two lines
+# given the vertical and horizontal index and the grid
+def draw_intersection(vertical_index, horizontal_index, grid):
+    grid[horizontal_index, vertical_index] = 4
+    return grid
+
+# ------------------------------------------------------------------------------------------
+
+# solving task 780d0b14
+
+def solve_780d0b14(x):
     return x
 
-def solve_b2862040(x):
-    return x
-
-def solve_05269061(x):
-    return x
-
+# ------------------------------------------------------------------------------------------
 
 def main():
     # Find all the functions defined in this file whose names are
