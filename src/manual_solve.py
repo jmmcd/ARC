@@ -168,6 +168,35 @@ def subgrid_colour_pixel_count(horizontal_divides, vertical_divides, grid):
 
 # ------------------------------------------------------------------------------------------
 
+# solving task 54d82841
+
+
+def solve_54d82841(x):
+    new_grid = np.copy(x)
+
+    grid_width = len(new_grid[0, :])
+    grid_height = len(new_grid[:, 0])
+
+    marked_x_locations = []
+
+    for row in range(grid_height):
+        for y in range(grid_width):
+            pixel_above = 0
+            pixel_below = 0
+            current_pixel = new_grid[row][y]
+
+            if row - 1 >= 0:
+                pixel_above = new_grid[row - 1][y]
+            if row + 1 < grid_height:
+                pixel_below = new_grid[row + 1][y]
+
+            if pixel_below == 0 and pixel_above == 0 and current_pixel != 0:
+                marked_x_locations = np.append(marked_x_locations, y)
+
+    for marked in marked_x_locations:
+        new_grid[grid_height-1][int(marked)] = 4
+
+    return new_grid
 
 def main():
     # Find all the functions defined in this file whose names are
