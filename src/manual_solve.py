@@ -174,29 +174,38 @@ def subgrid_colour_pixel_count(horizontal_divides, vertical_divides, grid):
 def solve_54d82841(x):
     new_grid = np.copy(x)
 
+    # getting width and height of input grid
     grid_width = len(new_grid[0, :])
     grid_height = len(new_grid[:, 0])
 
     marked_x_locations = []
 
+    # for each row and pixel calculate the current pixel colour and the colour of the pixel
+    # above and below. Then if a coloured pixel has a black pixel above or below it
+    # mark that x location and draw a yellow pixel at the bottom of the grid at that x position
     for row in range(grid_height):
         for y in range(grid_width):
             pixel_above = 0
             pixel_below = 0
             current_pixel = new_grid[row][y]
 
+            # if the above or below pixel is off the grid consider it black
             if row - 1 >= 0:
                 pixel_above = new_grid[row - 1][y]
             if row + 1 < grid_height:
                 pixel_below = new_grid[row + 1][y]
 
+            # rule check for deciding whether to save x location
             if pixel_below == 0 and pixel_above == 0 and current_pixel != 0:
                 marked_x_locations = np.append(marked_x_locations, y)
 
+    # iterate over saved x locations and use them to draw the yellow pixels
     for marked in marked_x_locations:
         new_grid[grid_height-1][int(marked)] = 4
 
+    # return input grid with yellow pixels added
     return new_grid
+
 
 def main():
     # Find all the functions defined in this file whose names are
