@@ -67,30 +67,30 @@ def draw_intersection(vertical_index, horizontal_index, grid):
 def solve_780d0b14(x):
     new_grid = np.copy(x)
     # find divides on each axis
-    horizontal = locate_divides(new_grid, "horizontal")
-    vertical = locate_divides(new_grid, "vertical")
+    horizontal = locate_divides(new_grid, "horizontal", 0)
+    vertical = locate_divides(new_grid, "vertical", 0)
     # find and return all square colours in the correct format
     return identify_colour_of_each_section(horizontal, vertical, new_grid)
 
 
 # find the divides represented by full rows or columns of zeros given
 # the grid and axis to search (vertical or horizontal)
-def locate_divides(grid, axis):
+def locate_divides(grid, axis, divide_colour):
     divide_indexes = np.array([])
     if axis == "horizontal":
-        divide = np.full(len(grid[0, :]), 0)
+        divide = np.full(len(grid[0, :]), divide_colour)
         for i, row in enumerate(grid):
             if (row == divide).all():
                 divide_indexes = np.append(divide_indexes, i)
         # add the end as a divide
-        divide_indexes = np.append(divide_indexes, len(grid[:, 0])-1)
+        divide_indexes = np.append(divide_indexes, len(grid[:, 0]))
     elif axis == "vertical":
-        divide = np.full(len(grid[:, 0]), 0)
+        divide = np.full(len(grid[:, 0]), divide_colour)
         for i, column in enumerate(grid.T):
             if (column == divide).all():
                 divide_indexes = np.append(divide_indexes, i)
         # add the end as a divide
-        divide_indexes = np.append(divide_indexes, len(grid[0, :])-1)
+        divide_indexes = np.append(divide_indexes, len(grid[0, :]))
 
     return divide_indexes
 
@@ -120,7 +120,54 @@ def identify_colour_of_each_section(horizontal_divides, vertical_divides, grid):
 
     # return all found colours as a np array
     return np.array(colours, int)
+
 # ------------------------------------------------------------------------------------------
+
+# solving task 780d0b14
+
+
+def solve_6773b310(x):
+    new_grid = np.copy(x)
+    # find divides on each axis
+    horizontal = locate_divides(new_grid, "horizontal", 8)
+    vertical = locate_divides(new_grid, "vertical", 8)
+    # if number of colour squares in a subgrid is greater than one, mark that subgrid with a blue pixel
+    return subgrid_colour_pixel_count(horizontal, vertical, new_grid)
+
+
+# method returns a grid of blue pixels, each occurrence representing more than one colour pixel in that subgrid
+def subgrid_colour_pixel_count(horizontal_divides, vertical_divides, grid):
+    colours = []
+    # for each horizontal divide
+    for h in horizontal_divides:
+        output_grid = []
+        # for each vertical divide, search for colour pixels within given bounds of the square and count them
+        for v in vertical_divides:
+            row_counter = 0
+            colour_count = 0
+            while row_counter < 3:
+                row_counter += 1
+                line_counter = 0
+                while line_counter < 3:
+                    line_counter += 1
+                    current = grid[int(h)-line_counter][int(v)-row_counter]
+                    if current == 6:
+                        # if colour found, increment counter
+                        colour_count += 1
+            if colour_count > 1:
+                output_grid = np.append(output_grid, 1)
+            else:
+                output_grid = np.append(output_grid, 0)
+
+        # once all colours counted in a row, update the output grid
+        # and move down to the next row of sub grids
+        colours.append(output_grid)
+
+    # return all found colours as a np array
+    return np.array(colours, int)
+
+# ------------------------------------------------------------------------------------------
+
 
 def main():
     # Find all the functions defined in this file whose names are
