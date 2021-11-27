@@ -25,7 +25,8 @@ import re
 # Task ID: bdad9b1f
 # Description: Identify and locate the vertical and horizontal line segments then continue the lines
 # until the end of the grid in the correct colour. Where the two drawn lines intersect, mark with a
-# different colour.
+# yellow pixel.
+# Completion: All train/test grids solved successfully
 
 def solve_bdad9b1f(x):
     new_grid = np.copy(x)
@@ -79,6 +80,7 @@ def draw_intersection(vertical_index, horizontal_index, grid):
 # identify the most common colour and save to a matrix. The shape of the matrix will reflect the
 # colour sections present and each entry in the matrix will reflect the most common colour found
 # in each square.
+# Completion: All train/test grids solved successfully
 
 
 def solve_780d0b14(x):
@@ -147,6 +149,7 @@ def identify_colour_of_each_section(horizontal_divides, vertical_divides, grid):
 # count the occurrences of the pink pixels. If there are two or more pink pixels within a square,
 # represent that square as an blue entry in a matrix that has shape reflecting the number of square
 # sections. If there are less than two pink pixels save as black.
+# Completion: All train/test grids solved successfully
 
 
 def solve_6773b310(x):
@@ -196,6 +199,7 @@ def subgrid_colour_pixel_count(horizontal_divides, vertical_divides, grid):
 # Task ID: 54d82841
 # Description: Identify each coloured "C" shape in the grid, locate the center of the shape and
 # draw a yellow pixel at the bottom of the grid with it being aligned vertically to the "C" shape
+# Completion: All train/test grids solved successfully
 
 
 def solve_54d82841(x):
