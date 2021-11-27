@@ -11,10 +11,21 @@ import re
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
 
+# Student Name: Jakub Wojtkowicz
+# ID: 17451684
+# GitHub Repository: https://github.com/Wojtkowicz/ARC
+#
+
+
 # ------------------------------------------------------------------------------------------
 
 
 # solving task bdad9b1f
+
+# Task ID: bdad9b1f
+# Description: Identify and locate the vertical and horizontal line segments then continue the lines
+# until the end of the grid in the correct colour. Where the two drawn lines intersect, mark with a
+# different colour.
 
 def solve_bdad9b1f(x):
     new_grid = np.copy(x)
@@ -62,6 +73,12 @@ def draw_intersection(vertical_index, horizontal_index, grid):
 # ------------------------------------------------------------------------------------------
 
 # solving task 780d0b14
+
+# Task ID: 780d0b14
+# Description: identify each square section bounded by a solid black line, within each section
+# identify the most common colour and save to a matrix. The shape of the matrix will reflect the
+# colour sections present and each entry in the matrix will reflect the most common colour found
+# in each square.
 
 
 def solve_780d0b14(x):
@@ -123,7 +140,13 @@ def identify_colour_of_each_section(horizontal_divides, vertical_divides, grid):
 
 # ------------------------------------------------------------------------------------------
 
-# solving task 780d0b14
+# solving task 6773b310
+
+# Task ID: 6773b310
+# Description: identify each square section bounded by a solid blue line, within each section
+# count the occurrences of the pink pixels. If there are two or more pink pixels within a square,
+# represent that square as an blue entry in a matrix that has shape reflecting the number of square
+# sections. If there are less than two pink pixels save as black.
 
 
 def solve_6773b310(x):
@@ -170,6 +193,10 @@ def subgrid_colour_pixel_count(horizontal_divides, vertical_divides, grid):
 
 # solving task 54d82841
 
+# Task ID: 54d82841
+# Description: Identify each coloured "C" shape in the grid, locate the center of the shape and
+# draw a yellow pixel at the bottom of the grid with it being aligned vertically to the "C" shape
+
 
 def solve_54d82841(x):
     new_grid = np.copy(x)
@@ -205,6 +232,8 @@ def solve_54d82841(x):
 
     # return input grid with yellow pixels added
     return new_grid
+
+# ------------------------------------------------------------------------------------------
 
 
 def main():
