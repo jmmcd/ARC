@@ -7,7 +7,7 @@ all additions to the provided manual_solve.py skeleton file are our own work,
 and that we have not seen any work on this assignment by another student/group.
 
 Student name(s): Kalyani Prashant Kawale, Apoorva Patil
-Student ID(s): 21237189, <Apoorva Student ID>
+Student ID(s): 21237189, 21237465
 
 Link to GitHub Repo: https://github.com/Kalyani011/ARC
 """
@@ -105,6 +105,48 @@ def solve_90f3ed37(x):
         # setting the color of newly added colored items in incomplete patterns to blue (1)
         for index in np.argwhere(chunk == 8):
             x[start:end, :][index[0], index[1]] = 1
+    return x
+
+def solve_7df24a62(x):
+    x_shape = x.shape
+    s=x_shape[0]
+    pattern_list = []
+    results_list = []
+    row,col = np.where(x==1)
+    row
+    min_row = np.min(row)
+    min_col = np.min(col)
+    max_row = np.max(row)
+    max_col = np.max(col)
+
+    pattern = x[min_row:max_row+1,min_col:max_col+1]
+
+    i,j = np.where(pattern==4)
+    pat = pattern[np.min(i):np.max(i+1),np.min(j):np.max(j+1)]
+    copy_pat = np.copy(pat)
+    #converting all 1s to 0s in the pattern
+    copy_pat[copy_pat == 1] = 0
+    pattern_shape = pat.shape
+    itr = pattern_shape[0]
+    pattern_list.append(copy_pat)
+    pattern_list.append(np.transpose(copy_pat))
+    pattern_list.append(np.fliplr(copy_pat))
+    pattern_list.append(np.flipud(copy_pat))
+
+
+    for i in range(s-itr+1):
+        for j in range(s-itr+1):
+            sub = x[i:i+itr,j:j+itr]
+            for p in pattern_list:
+                if sub.shape == pattern_shape and np.array_equal(sub,p):
+                    sub[sub!=4]=1
+                    print(sub)
+                    print(i,j)
+                    x[i-1:i+itr+1,j-1] = 1
+                    x[i-1,j:j+itr+1] = 1
+                    if i+itr != s:
+                        x[i+itr,j:j+itr+1] = 1
+                    x[i-1:i+itr+1,j+itr] = 1
     return x
 
 
