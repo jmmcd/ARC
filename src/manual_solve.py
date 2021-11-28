@@ -84,9 +84,9 @@ def solve_90f3ed37(x):
         # for any row in pattern the corresponding row to be filled has more colored items
         # example: training first sample and test sample
         for i in range(len(pattern)):
-            colored_pattern = len(pattern[i][pattern[i] != 0])
-            colored_x = len(chunk[i][chunk[i] != 0])
-            if colored_x > colored_pattern:
+            num_colored_pattern = len(pattern[i][pattern[i] != 0])
+            num_colored_x = len(chunk[i][chunk[i] != 0])
+            if num_colored_x > num_colored_pattern:
                 shift = True
                 break
         # getting the cells to be colored blue by subtracting sub-grid from pattern
